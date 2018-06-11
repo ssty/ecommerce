@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ecommerceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="account_id" />
+    </Key>
+    <Property Name="account_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email_address" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="admin_id" />
+    </Key>
+    <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="brand">
+    <Key>
+      <PropertyRef Name="brand_id" />
+    </Key>
+    <Property Name="brand_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="brand_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="brand_detail" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contact_number">
+    <Key>
+      <PropertyRef Name="contact_number_id" />
+    </Key>
+    <Property Name="contact_number_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="contact number" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="account_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="favourite">
+    <Key>
+      <PropertyRef Name="favourite_id" />
+    </Key>
+    <Property Name="favourite_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="product_id" Type="int" Nullable="false" />
+    <Property Name="account_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="image">
+    <Key>
+      <PropertyRef Name="image_id" />
+    </Key>
+    <Property Name="image_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="image" Type="varchar(max)" Nullable="false" />
+    <Property Name="product_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="product_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="product_detail" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="product_price" Type="int" Nullable="false" />
+    <Property Name="brand_id" Type="int" Nullable="false" />
+    <Property Name="type_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="type">
+    <Key>
+      <PropertyRef Name="type_id" />
+    </Key>
+    <Property Name="type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type_name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_contact_number_account">
+    <End Role="account" Type="Self.account" Multiplicity="1" />
+    <End Role="contact_number" Type="Self.contact_number" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="account_id" />
+      </Principal>
+      <Dependent Role="contact_number">
+        <PropertyRef Name="account_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favourite_account">
+    <End Role="account" Type="Self.account" Multiplicity="1" />
+    <End Role="favourite" Type="Self.favourite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="account_id" />
+      </Principal>
+      <Dependent Role="favourite">
+        <PropertyRef Name="account_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favourite_product">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="favourite" Type="Self.favourite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="favourite">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_image_product">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="image" Type="Self.image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="image">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_brand">
+    <End Role="brand" Type="Self.brand" Multiplicity="1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="brand">
+        <PropertyRef Name="brand_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="brand_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_type">
+    <End Role="type" Type="Self.type" Multiplicity="1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="type">
+        <PropertyRef Name="type_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ecommerceModelStoreContainer">
+    <EntitySet Name="account" EntityType="Self.account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="brand" EntityType="Self.brand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contact_number" EntityType="Self.contact_number" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="favourite" EntityType="Self.favourite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="image" EntityType="Self.image" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="type" EntityType="Self.type" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_contact_number_account" Association="Self.FK_contact_number_account">
+      <End Role="account" EntitySet="account" />
+      <End Role="contact_number" EntitySet="contact_number" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favourite_account" Association="Self.FK_favourite_account">
+      <End Role="account" EntitySet="account" />
+      <End Role="favourite" EntitySet="favourite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favourite_product" Association="Self.FK_favourite_product">
+      <End Role="product" EntitySet="product" />
+      <End Role="favourite" EntitySet="favourite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_image_product" Association="Self.FK_image_product">
+      <End Role="product" EntitySet="product" />
+      <End Role="image" EntitySet="image" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_brand" Association="Self.FK_product_brand">
+      <End Role="brand" EntitySet="brand" />
+      <End Role="product" EntitySet="product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_type" Association="Self.FK_product_type">
+      <End Role="type" EntitySet="type" />
+      <End Role="product" EntitySet="product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

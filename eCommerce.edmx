@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ecommerceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="account_id" />
+          </Key>
+          <Property Name="account_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email_address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="brand">
+          <Key>
+            <PropertyRef Name="brand_id" />
+          </Key>
+          <Property Name="brand_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="brand_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="brand_detail" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contact_number">
+          <Key>
+            <PropertyRef Name="contact_number_id" />
+          </Key>
+          <Property Name="contact_number_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contact number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="account_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="favourite">
+          <Key>
+            <PropertyRef Name="favourite_id" />
+          </Key>
+          <Property Name="favourite_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="account_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="image_id" />
+          </Key>
+          <Property Name="image_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="image" Type="varchar(max)" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="product_detail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="product_price" Type="int" Nullable="false" />
+          <Property Name="brand_id" Type="int" Nullable="false" />
+          <Property Name="type_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="type">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_contact_number_account">
+          <End Role="account" Type="Self.account" Multiplicity="1" />
+          <End Role="contact_number" Type="Self.contact_number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="account">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="contact_number">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favourite_account">
+          <End Role="account" Type="Self.account" Multiplicity="1" />
+          <End Role="favourite" Type="Self.favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="account">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="favourite">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favourite_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="favourite" Type="Self.favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="favourite">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_image_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_brand">
+          <End Role="brand" Type="Self.brand" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="brand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_type">
+          <End Role="type" Type="Self.type" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ecommerceModelStoreContainer">
+          <EntitySet Name="account" EntityType="Self.account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="brand" EntityType="Self.brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contact_number" EntityType="Self.contact_number" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="favourite" EntityType="Self.favourite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="image" EntityType="Self.image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="type" EntityType="Self.type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_contact_number_account" Association="Self.FK_contact_number_account">
+            <End Role="account" EntitySet="account" />
+            <End Role="contact_number" EntitySet="contact_number" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favourite_account" Association="Self.FK_favourite_account">
+            <End Role="account" EntitySet="account" />
+            <End Role="favourite" EntitySet="favourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favourite_product" Association="Self.FK_favourite_product">
+            <End Role="product" EntitySet="product" />
+            <End Role="favourite" EntitySet="favourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_image_product" Association="Self.FK_image_product">
+            <End Role="product" EntitySet="product" />
+            <End Role="image" EntitySet="image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_brand" Association="Self.FK_product_brand">
+            <End Role="brand" EntitySet="brand" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_type" Association="Self.FK_product_type">
+            <End Role="type" EntitySet="type" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ecommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="account_id" />
+          </Key>
+          <Property Name="account_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="contact_number" Relationship="Self.FK_contact_number_account" FromRole="account" ToRole="contact_number" />
+          <NavigationProperty Name="favourites" Relationship="Self.FK_favourite_account" FromRole="account" ToRole="favourite" />
+        </EntityType>
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="brand">
+          <Key>
+            <PropertyRef Name="brand_id" />
+          </Key>
+          <Property Name="brand_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="brand_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="brand_detail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_product_brand" FromRole="brand" ToRole="product" />
+        </EntityType>
+        <EntityType Name="contact_number">
+          <Key>
+            <PropertyRef Name="contact_number_id" />
+          </Key>
+          <Property Name="contact_number_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contact_number1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="account_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="account" Relationship="Self.FK_contact_number_account" FromRole="contact_number" ToRole="account" />
+        </EntityType>
+        <EntityType Name="favourite">
+          <Key>
+            <PropertyRef Name="favourite_id" />
+          </Key>
+          <Property Name="favourite_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="account_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="account" Relationship="Self.FK_favourite_account" FromRole="favourite" ToRole="account" />
+          <NavigationProperty Name="product" Relationship="Self.FK_favourite_product" FromRole="favourite" ToRole="product" />
+        </EntityType>
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="image_id" />
+          </Key>
+          <Property Name="image_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_image_product" FromRole="image" ToRole="product" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_detail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_price" Type="Int32" Nullable="false" />
+          <Property Name="brand_id" Type="Int32" Nullable="false" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="brand" Relationship="Self.FK_product_brand" FromRole="product" ToRole="brand" />
+          <NavigationProperty Name="favourites" Relationship="Self.FK_favourite_product" FromRole="product" ToRole="favourite" />
+          <NavigationProperty Name="images" Relationship="Self.FK_image_product" FromRole="product" ToRole="image" />
+          <NavigationProperty Name="type" Relationship="Self.FK_product_type" FromRole="product" ToRole="type" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="type">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_product_type" FromRole="type" ToRole="product" />
+        </EntityType>
+        <Association Name="FK_contact_number_account">
+          <End Role="account" Type="Self.account" Multiplicity="1" />
+          <End Role="contact_number" Type="Self.contact_number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="account">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="contact_number">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favourite_account">
+          <End Role="account" Type="Self.account" Multiplicity="1" />
+          <End Role="favourite" Type="Self.favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="account">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="favourite">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_brand">
+          <End Role="brand" Type="Self.brand" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="brand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favourite_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="favourite" Type="Self.favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="favourite">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_image_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_type">
+          <End Role="type" Type="Self.type" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ecommerceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="accounts" EntityType="Self.account" />
+          <EntitySet Name="admins" EntityType="Self.admin" />
+          <EntitySet Name="brands" EntityType="Self.brand" />
+          <EntitySet Name="contact_number" EntityType="Self.contact_number" />
+          <EntitySet Name="favourites" EntityType="Self.favourite" />
+          <EntitySet Name="images" EntityType="Self.image" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="types" EntityType="Self.type" />
+          <AssociationSet Name="FK_contact_number_account" Association="Self.FK_contact_number_account">
+            <End Role="account" EntitySet="accounts" />
+            <End Role="contact_number" EntitySet="contact_number" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favourite_account" Association="Self.FK_favourite_account">
+            <End Role="account" EntitySet="accounts" />
+            <End Role="favourite" EntitySet="favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_brand" Association="Self.FK_product_brand">
+            <End Role="brand" EntitySet="brands" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favourite_product" Association="Self.FK_favourite_product">
+            <End Role="product" EntitySet="products" />
+            <End Role="favourite" EntitySet="favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_image_product" Association="Self.FK_image_product">
+            <End Role="product" EntitySet="products" />
+            <End Role="image" EntitySet="images" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_type" Association="Self.FK_product_type">
+            <End Role="type" EntitySet="types" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ecommerceModelStoreContainer" CdmEntityContainer="ecommerceEntities">
+          <EntitySetMapping Name="accounts">
+            <EntityTypeMapping TypeName="ecommerceModel.account">
+              <MappingFragment StoreEntitySet="account">
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="admins">
+            <EntityTypeMapping TypeName="ecommerceModel.admin">
+              <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="brands">
+            <EntityTypeMapping TypeName="ecommerceModel.brand">
+              <MappingFragment StoreEntitySet="brand">
+                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
+                <ScalarProperty Name="brand_name" ColumnName="brand_name" />
+                <ScalarProperty Name="brand_detail" ColumnName="brand_detail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contact_number">
+            <EntityTypeMapping TypeName="ecommerceModel.contact_number">
+              <MappingFragment StoreEntitySet="contact_number">
+                <ScalarProperty Name="contact_number_id" ColumnName="contact_number_id" />
+                <ScalarProperty Name="contact_number1" ColumnName="contact number" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="favourites">
+            <EntityTypeMapping TypeName="ecommerceModel.favourite">
+              <MappingFragment StoreEntitySet="favourite">
+                <ScalarProperty Name="favourite_id" ColumnName="favourite_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="images">
+            <EntityTypeMapping TypeName="ecommerceModel.image">
+              <MappingFragment StoreEntitySet="image">
+                <ScalarProperty Name="image_id" ColumnName="image_id" />
+                <ScalarProperty Name="image1" ColumnName="image" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="ecommerceModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_detail" ColumnName="product_detail" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ecommerceModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="types">
+            <EntityTypeMapping TypeName="ecommerceModel.type">
+              <MappingFragment StoreEntitySet="type">
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

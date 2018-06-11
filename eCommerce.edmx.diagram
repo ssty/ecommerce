@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e9a0d29f8da54677a80a0637d1afb07f" Name="Diagram1">
+        <EntityTypeShape EntityType="ecommerceModel.account" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.admin" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.brand" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.contact_number" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.favourite" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.image" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.product" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.sysdiagram" Width="1.5" PointX="7.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.type" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ecommerceModel.FK_contact_number_account" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK_favourite_account" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK_product_brand" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK_favourite_product" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK_image_product" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK_product_type" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
