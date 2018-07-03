@@ -12,7 +12,7 @@
 	<script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-   
+      
     <nav class="navbar navbar-inverse" style="height:75px;">
         <div class="container-fluid" >
             <div class="row">

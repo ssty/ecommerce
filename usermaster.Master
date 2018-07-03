@@ -5,129 +5,112 @@
 <html>
 <head runat="server">
     <title></title>
-     	<!--/tags -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
-	<link href="/Bootstrap/Design/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="/Bootstrap/Design/css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="/Bootstrap/Design/css/font-awesome.css" rel="stylesheet">
-	<!--pop-up-box-->
-	<link href="/Bootstrap/Design/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-	<!--//pop-up-box-->
-	<!-- price range -->
-	<link rel="stylesheet" type="text/css" href="/Bootstrap/Design/css/jquery-ui1.css">
-	<!-- fonts -->
-	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/Bootstrap/Design/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/Bootstrap/Design/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/Bootstrap/Design/css/font-awesome.css" rel="stylesheet">
+    <link href="/Bootstrap/Design/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/Bootstrap/Design/css/jquery-ui1.css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
     <style type="text/css">
         #form1 {
             height: 55px;
         }
     </style>
     <asp:ContentPlaceHolder ID="head" runat="server">
-       
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-    <!-- header-bot -->
-	<div class="header-bot">
-		<div class="header-bot_inner_wthreeinfo_header_mid">
-			<div class="col-md-4 logo_agile">
-				<h1>
-					<a href="index.html">
-						<span>S</span>ee
+        <div class="header-bot">
+            <div class="header-bot_inner_wthreeinfo_header_mid">
+                <div class="col-md-4 logo_agile">
+                    <h1>
+                        <a href="index.html">
+                            <span>S</span>ee
 						<span>P</span>roduct&nbsp;  
-					</a>
-				</h1>
-			</div>
-			<!-- header-bot -->
+                        </a>
+                    </h1>
+                </div>
 
-			<div class="col-md-8 header">
-				<!-- header lists -->
-                <div class="top_nav_right">
-				<ul>
-					<li>
-						<a href="Home.aspx" data-toggle="modal" data-target="#myModal2">
-							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign out</a>
-					</li>
-				</ul>
+                <%if (Session["UserId"] == null)
+                    { %>
+                <div class="col-md-8 header">
+                    <ul>
+                        <li>
+                            <a href="Login.aspx" data-toggle="modal" data-target="#myModal1">
+                                <span id="signIN" class="fa fa-unlock-alt" aria-hidden="true"></span>Sign In </a>
+                        </li>
+                        <li>
+                            <a href="Registration.aspx" data-toggle="modal" data-target="#myModal2">
+                                <span id="signOut" class="fa fa-pencil-square-o" aria-hidden="true"></span>Sign Up </a>
+                        </li>
+                    </ul>
                 </div>
+                <%}
+                    else
+                    { %>
+                <div class="right navbar-right">
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text=" Sign Out" CssClass=" btn btn-primary" />
                 </div>
-				<!-- //header lists -->
-				
-				<!-- cart details -->
-				
-				<div class="clearfix"></div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	<div class="ban-top">
-		<div class="container" >
-			<div class="agileits-navi_search">
-                  <asp:DropDownList ID="txtProductBrandFooter" runat="server" DataSourceID="SqlDataSource1" DataTextField="brand_name" DataValueField="brand_name" OnSelectedIndexChanged="txtProductBrandFooter_SelectedIndexChanged">
-                                </asp:DropDownList>
-                                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ecommerceConnectionString %>" SelectCommand="SELECT [brand_name] FROM [product]"></asp:SqlDataSource>
-			</div>
-			<div class="top_nav_left">
-				<nav class="navbar navbar-default">
-					<div class="container-fluid">
-						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav menu__list">
-								<li class="active">
-									<a class="nav-stylehead" href="index.html">Home
+                <%} %>
+
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="ban-top">
+            <div class="container">
+                <div class="top_nav_left">
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav menu__list">
+                                    <li class="active">
+                                        <a class="nav-stylehead" href="Homepage.aspx">Home
 										<span class="sr-only">(current)</span>
-									</a>
-								</li>
-								<li class="">
-									<a class="nav-stylehead" href="about.html">About Us</a>
-								</li>								
-								<li class="">
-									<a class="nav-stylehead" href="contact.html">Contact</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-			</div>        
-		</div>
-        </div>
-    <div class="ads-grid">
-		<div class="container">
-			<!-- tittle heading -->
-			<div class="side-bar col-md-3">
-				<div class="search-hotel">
-					<h3 class="agileits-sear-head">Search Here..</h3>
-                    <h3 class="agileits-sear-head">Product name</h3>
-					<form action="#" method="post">
-						<input type="search" placeholder="Product name..." name="search" required="">
-					</form>
-                    <asp:Button ID="Search1" runat="server" Text="Search" />
-				</div>
-                <div class="search-hotel">
-                    <h3 class="agileits-sear-head"> &nbsp;Brand name</h3>
-					<form action="#" method="post">
-						<input type="search" placeholder="Product name..." name="search" required="">&nbsp;
-					</form>
-                    <asp:Button ID="Search2" runat="server" Text="Search" />
-				</div>
-				<!-- price range -->
-				<div class="range">
-					<h3 class="agileits-sear-head">Price range</h3>
-					<ul class="dropdown-menu6">
-						<li>
+                                        </a>
+                                    </li>
+                                    <%if (Session["UserId"] != null)
+                                        { %>
+                                    <li class="">
+                                        <a class="nav-stylehead" href="UserMyAccount.aspx">My Account</a>
+                                    </li>
+                                    <li class="">
+                                        <a class="nav-stylehead" href="UserMyFav.aspx">My Favourite</a>
+                                    </li>
+                                    <%} %>
+                                    <li class="">
+                                        <a class="nav-stylehead" href="about.html">About Us</a>
+                                    </li>
 
-							<div id="slider-range"></div>
-							<input type="text" id="amount" style="border: 0; color: #ffffff; font-weight: normal;" />
-						</li>
-					</ul>
-				</div>
-				
-			<!-- //product right -->
-		</div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
         </div>
+        <div class="ads-grid">
+            <div class="container">
+                <!-- tittle heading -->
+                <div class="side-bar col-md-3">
+                    <div class="search-hotel">
+                        <h3 class="agileits-sear-head">Search Here..</h3>
+                        <asp:Panel ID="panelSearch" runat="server">
+                            <h3 class="agileits-sear-head">Product name</h3>
+                            <div style="padding-bottom:0px">
+                                <asp:TextBox ID="txtSearch" runat="server" placeholder="Product name..."  Width="206px" Height="39px"></asp:TextBox>
+                                <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" PostBackUrl="~/UserSearch.aspx" />
+                            </div>
+                        </asp:Panel>
+                    </div>
+                </div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
         </div>
     </form>
 </body>

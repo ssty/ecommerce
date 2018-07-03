@@ -25,6 +25,7 @@ namespace Test1
         public string product_name { get; set; }
         public string product_detail { get; set; }
         public int product_price { get; set; }
+        public string brand_name { get; set; }
         public int brand_id { get; set; }
         public int type_id { get; set; }
     

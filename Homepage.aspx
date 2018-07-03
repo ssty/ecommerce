@@ -1,180 +1,103 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="Test1.Home" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/usermaster.Master" AutoEventWireup="true" CodeBehind="Homepage.aspx.cs" Inherits="Test1.Homepage" %>
 
-
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-	<title></title>
-	<!--/tags -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
-	<link href="/Bootstrap/Design/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="/Bootstrap/Design/css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="/Bootstrap/Design/css/font-awesome.css" rel="stylesheet">
-	<!--pop-up-box-->
-	<link href="/Bootstrap/Design/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-	<!--//pop-up-box-->
-	<!-- price range -->
-	<link rel="stylesheet" type="text/css" href="/Bootstrap/Design/css/jquery-ui1.css">
-	<!-- fonts -->
-	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
-    <style type="text/css">
-        #form1 {
-            height: 55px;
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title></title>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="http://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript">
+        function openPopup(product_id, product_name, product_price, product_detail, brand_name, brand_detail) {
+            $('#lblId').text(product_id);
+            $('#lblName').text(product_name);
+            $('#lblPrice').text(product_price);
+            $('#lblProductDetail').text(product_detail);
+            $('#lblBrand').text(brand_name);
+            $('#lblBrandDetail').text(brand_detail);
+            $("#popupdiv").dialog({
+                title: "Description",
+                width: 1000,
+                height: 550,
+                modal: true,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
         }
-    </style>
-</head>
+    </script>
+   
 
-<body>
-    <!-- header-bot -->
-	<div class="header-bot">
-		<div class="header-bot_inner_wthreeinfo_header_mid">
-			<div class="col-md-4 logo_agile">
-				<h1>
-					<a href="index.html">
-						<span>S</span>ee
-						<span>P</span>roduct&nbsp;  
-					</a>
-				</h1>
-			</div>
-			<!-- header-bot -->
-
-			<div class="col-md-8 header">
-				<!-- header lists -->
-                <div class="top_nav_right">
-				<ul>
-					<li>
-						<a href="Home.aspx" data-toggle="modal" data-target="#myModal2">
-							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign out</a>
-					</li>
-				</ul>
-                </div>
-                </div>
-				<!-- //header lists -->
-				
-				<!-- cart details -->
-				
-				<div class="clearfix"></div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-				<form id="form1" runat="server">
-	<div class="ban-top">
-		<div class="container" >
-			<div class="agileits-navi_search">
-                    <asp:DropDownList ID="DropDownList1" runat="server" Height="50px" Width="399px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
-                        <asp:ListItem Value="Clothing"></asp:ListItem>
-                        <asp:ListItem Value="Electronics"></asp:ListItem>
-                        <asp:ListItem Value="Automobile"></asp:ListItem>
-                        <asp:ListItem Value="Food"></asp:ListItem>
-                        <asp:ListItem Value="Bike"></asp:ListItem>
-                        <asp:ListItem></asp:ListItem>
-                        <asp:ListItem></asp:ListItem>
-                    </asp:DropDownList>
-			</div>
-			<div class="top_nav_left">
-				<nav class="navbar navbar-default">
-					<div class="container-fluid">
-						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav menu__list">
-								<li class="active">
-									<a class="nav-stylehead" href="index.html">Home
-										<span class="sr-only">(current)</span>
-									</a>
-								</li>
-								<li class="">
-									<a class="nav-stylehead" href="about.html">About Us</a>
-								</li>								
-								<li class="">
-									<a class="nav-stylehead" href="contact.html">Contact</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-			</div>        
-		</div>
+        <div id="popupdiv" title="modal dialog" style="display: none;">
+            Product Id:
+                    <label id="lblId"></label>
+            <br />
+            Product Name:
+                    <label id="lblName"></label>
+            <br />
+            Brand Name:
+                    <label id="lblBrand"></label>
+            <br />
+            Price:
+                    <label id="lblPrice"></label>
+            <br />
+            Product Detail:
+                    <label id="lblProductDetail"></label>
+            <br />
+            Brand Detail:
+                    <label id="lblBrandDetail"></label>
         </div>
-    <div class="ads-grid">
-		<div class="container">
-			<!-- tittle heading -->
-			<div class="side-bar col-md-3">
-				<div class="search-hotel">
-					<h3 class="agileits-sear-head">Search Here..</h3>
-                    <h3 class="agileits-sear-head">Product name</h3>
-					<form action="#" method="post">
-						<input type="search" placeholder="Product name..." name="search" required="">
-					</form>
-                    <asp:Button ID="Search1" runat="server" Text="Search" />
-				</div>
-                <div class="search-hotel">
-                    <h3 class="agileits-sear-head"> &nbsp;Brand name</h3>
-					<form action="#" method="post">
-						<input type="search" placeholder="Product name..." name="search" required="">&nbsp;
-					</form>
-                    <asp:Button ID="Search2" runat="server" Text="Search" />
-				</div>
-				<!-- price range -->
-				<div class="range">
-					<h3 class="agileits-sear-head">Price range</h3>
-					<ul class="dropdown-menu6">
-						<li>
+        <h1>
+            <asp:Label ID="Label1" runat="server" Text="Label" CssClass=" pull-right" Font-Size="X-Small" Font-Bold="true" Font-Italic="true"></asp:Label>
+        </h1>
+        <div class="col col-lg-9">
+            <asp:Label ID="ErrorMsg" Text="" runat="server" ForeColor="Red" />
 
-							<div id="slider-range"></div>
-							<input type="text" id="amount" style="border: 0; color: #ffffff; font-weight: normal;" />
-						</li>
-					</ul>
-				</div>
-				
-			<!-- //product right -->
-		</div>
-            
-        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
-            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-            <EditRowStyle BackColor="#999999" />
-            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-        </asp:GridView>
-
-
-
-	</div>
+            <table style="position: center">
+                <tr>
+                    <td>
+                        <div class="GridviewDiv">
+                            <asp:GridView runat="server" ID="gvDetails" CellPadding="3" CssClass="table table-striped" margin-top="100" OnRowCommand="gvDetails_RowCommand" AllowPaging="True" AutoGenerateColumns="false" Width="1020px" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
+                                <HeaderStyle CssClass="headerstyle" />
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Image" SortExpression="Image" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:Image ID="img" Width="150px" Height="150px" runat="server" ImageUrl='<%# Eval("image") %>'></asp:Image>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Center" Width="20%"></ItemStyle>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="product_id" HeaderText="Product Id" />
+                                    <asp:BoundField DataField="product_name" HeaderText="Product Name" />
+                                    <asp:BoundField DataField="brand_name" HeaderText="Brand Name" />
+                                    <asp:BoundField DataField="product_price" HeaderText="Price" />
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <a href="#" class="gridViewToolTip" onclick='openPopup("<%# Eval("product_id")%>","<%# Eval("product_name")%>","<%# Eval("product_price")%>","<%# Eval("product_detail")%>","<%# Eval("brand_name")%>","<%# Eval("brand_detail")%>")'>View Details</a>
+                                            <br />
+                                            <br />
+                                            <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument="<%# Container.DataItemIndex %>" CommandName="Select" Text="Add to favourite"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <FooterStyle BackColor="White" ForeColor="#000066" />
+                                <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+                                <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+                                <RowStyle ForeColor="#000066" />
+                                <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+                                <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                                <SortedAscendingHeaderStyle BackColor="#007DBB" />
+                                <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                                <SortedDescendingHeaderStyle BackColor="#00547E" />
+                            </asp:GridView>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-	
-	
-
-	
-
-    </form>
-				
-	
-
-</body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <asp:Label ID="LblSuccessMsg" Text="" runat="server" ForeColor="Green" />
+        <asp:Label ID="LblErrorMsg" Text="" runat="server" ForeColor="Red" />
+</asp:Content>
 
 

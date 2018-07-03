@@ -185,6 +185,7 @@ table {
 td,
 th {
   padding: 0;
+    text-align: center;
 }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
@@ -2248,7 +2249,9 @@ pre code {
   }
 }
 table {
-  background-color: transparent;
+  background-color: #FFFFFF;
+    margin-right: 0px;
+    text-align: left;
 }
 caption {
   padding-top: 8px;
@@ -2550,7 +2553,6 @@ output {
 .form-control {
   display: block;
   width: 107%;
-  height: 34px;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
@@ -4109,6 +4111,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-justified {
   width: 100%;
+    height: 330px;
 }
 .nav-justified > li {
   float: none;

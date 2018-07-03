@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
@@ -13,20 +12,15 @@ namespace Test1
 {
     public partial class Home : System.Web.UI.Page
     {
+        product product = new product();
+        favourite favourite = new favourite();
+        string CS = ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            string connnectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connnectionstring))
+            if (Session["UserId"] != null)
             {
-                string sql = "select product_name as Product, product_detail as Description,product_price as Price from product";
-                SqlCommand cmd = new SqlCommand(sql, con);             
-                con.Open();
-                GridView1.DataSource = cmd.ExecuteReader();
-                GridView1.DataBind();
-
+                Response.Redirect("Homepage.aspx");
             }
-
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -49,36 +43,20 @@ namespace Test1
         {
 
         }
+        protected void BtnAddToFav_Click_Click1(object sender, EventArgs e)
+        {
+
+        }
+
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //string connnectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
-            //using (SqlConnection con = new SqlConnection(connnectionstring))
-            //{
-            //    SqlCommand cmd = new SqlCommand("Select type_id,type_name from type", con);
-            //    con.Open();
-            //    DropDownList1.DataSource = cmd.ExecuteReader();
-            //    DropDownList1.DataTextField = "type_name";
-            //    DropDownList1.DataValueField = "type_id";
-            //    DropDownList1.DataBind();
-            //}
 
-
-            //using (SqlConnection con = new SqlConnection(connnectionstring))
-            //{
-            //    SqlCommand cmd = new SqlCommand("SelectType", con);
-            //    con.Open();
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    cmd.Parameters.AddWithValue("@type_name", DropDownList1.SelectedItem.Value); //for checking if it is in db or not
-            //    GridView1.DataSource = cmd.ExecuteReader();
-            //  GridView1.DataBind();
-
-
-            }
+        }
 
         protected void insertProduct_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -91,5 +69,26 @@ namespace Test1
         {
 
         }
+
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Select")
+            {
+                //Determine the RowIndex of the Row whose Button was clicked.
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+
+                //Reference the GridView Row.
+              //  GridViewRow row = GridView1.Rows[rowIndex];
+
+
+              //  ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert(' You must login first!!');</script>");
+
+
+            }
+        }
+
+
     }
-    }
+}
+
+

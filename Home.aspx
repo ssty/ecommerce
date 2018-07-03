@@ -1,172 +1,124 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="Test1.Home" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PublicUsermaster.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="Test1.Home" %>
 
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-	<title></title>
-	<!--/tags -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="Grocery Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-	<script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
-	<!--//tags -->
-	<link href="/Bootstrap/Design/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="/Bootstrap/Design/css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="/Bootstrap/Design/css/font-awesome.css" rel="stylesheet"/>
-	<!--pop-up-box-->
-	<link href="/Bootstrap/Design/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-	<!--//pop-up-box-->
-	<!-- price range -->
-	<link rel="stylesheet" type="text/css" href="/Bootstrap/Design/css/jquery-ui1.css"/>
-	<!-- fonts -->
-	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet"/>
-    <style type="text/css">
-        #form1 {
-            height: 55px;
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <style>
+        .HiddenCol {
+            display: none;
         }
     </style>
-</head>
+    <script type="text/javascript">
+        $(function () {
+            if ('<%=Page.IsPostBack%>'.toLowerCase() == 'true')
+                ShowPopup();
+        });
+        function ShowPopup() {
+            $("#dialog").dialog({
+                title: "Description",               
+                width: 1000,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog('close');
+                    }
+                },
+                modal: true
+            });
+        }
+    </script>
+    <asp:GridView ID="GridView1" runat="server" CellPadding="3" CssClass="table table-striped" margin-top="100" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" AllowPaging="True" OnRowCommand="GridView1_RowCommand" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
+        <Columns>
+            <asp:TemplateField HeaderText="Image" SortExpression="Image" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center">
+                <ItemTemplate>
+                    <asp:Image ID="img" Width="150px" Height="150px" runat="server" ImageUrl='<%# Bind("Image") %>'></asp:Image>
+                </ItemTemplate>
 
-<body>
-	<form id="form1" runat="server">
-	<div class="header-bot">
-		<div class="header-bot_inner_wthreeinfo_header_mid">
-			<div class="col-md-4 logo_agile">
-				<h1>
-					<a href="index.html">
-						<span>S</span>ee
-						<span>P</span>roduct&nbsp;
-					</a>
-				</h1>
-			</div>
-			<!-- header-bot -->
-			<div class="col-md-8 header">
-				<!-- header lists -->
-				<ul>
-					<li>
-						<a href="Login.aspx" data-toggle="modal" data-target="#myModal1">
-							<span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
-					</li>
-					<li>
-						<a href="Registration.aspx" data-toggle="modal" data-target="#myModal2">
-							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
-					</li>
-				</ul>
-                </div>
-				<!-- //header lists -->
-				
-				<!-- cart details -->
-				<div class="top_nav_right">
-					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="display" value="1">							
-							
-					</div>
-				</div>
-				<!-- //cart details -->
-				<div class="clearfix"></div>
-			
-			<div class="clearfix"></div>
-		</div>
-	</div>
-	<div class="ban-top">
-		<div class="container" >
-			<div class="agileits-navi_search">
-                    <asp:DropDownList ID="DropDownList1"  runat="server" Height="50px" Width="399px">
-                    </asp:DropDownList>              
+                <ItemStyle HorizontalAlign="Center" Width="20%"></ItemStyle>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Product Description" SortExpression="ProductName" ItemStyle-Width="50%" ItemStyle-Height="20%">
+                <ItemTemplate>
+                    <div class="text-left">
+                        Product Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label2" runat="server" Text='<%# Bind("ProductName") %>'></asp:Label>
+                        <br />
+                        Price:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label4" runat="server" Text='<%# Bind("Price") %>'></asp:Label>
+                        <br />
+                        Brand: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label5" runat="server" Text='<%# Bind("Brand") %>'></asp:Label>
+                        <br />
+                        <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Bind("ProductId") %>' CommandName="Details" Text="View Details"></asp:LinkButton>
+                        &nbsp;&nbsp;&nbsp;
+                         <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument="<%# Container.DataItemIndex %>" CommandName="Select" Text="Add to favourite"></asp:LinkButton>
+                        </div>
+                </ItemTemplate>
+                <ItemStyle Height="20%" Width="50%"></ItemStyle>
+            </asp:TemplateField>
+        </Columns>
+        <FooterStyle BackColor="White" ForeColor="#000066" />
+        <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+        <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+        <RowStyle ForeColor="#000066" />
+        <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+        <SortedAscendingCellStyle BackColor="#F1F1F1" />
+        <SortedAscendingHeaderStyle BackColor="#007DBB" />
+        <SortedDescendingCellStyle BackColor="#CAC9C9" />
+        <SortedDescendingHeaderStyle BackColor="#00547E" />
+    </asp:GridView>
 
-			</div>
-			<div class="top_nav_left">
-				<nav class="navbar navbar-default">
-					<div class="container-fluid">
-						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav menu__list">
-								<li class="active">
-									<a class="nav-stylehead" href="index.html">Home
-										<span class="sr-only">(current)</span>
-									</a>
-								</li>
-								<li class="">
-									<a class="nav-stylehead" href="about.html">About Us</a>
-								</li>								
-								<li class="">
-									<a class="nav-stylehead" href="contact.html">Contact</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-			</div>        
-		</div>
-        </div>
-    <div class="ads-grid">
-		<div class="container">
-			<!-- tittle heading -->
-			<div class="side-bar col-md-3">
-				<div class="search-hotel">
-					<h3 class="agileits-sear-head">Search Here..</h3>
-                    <h3 class="agileits-sear-head">Product name</h3>
-					<form action="#" method="post">
-						<input type="search" placeholder="Product name..." name="search" required="">
-					</form>
-                    <asp:Button ID="Search1" runat="server" Text="Search" OnClick="Search1_Click" />
-				</div>
-                <div class="search-hotel">
-                    <h3 class="agileits-sear-head"> &nbsp;Brand name</h3>
-					<form action="#" method="post">
-						<input type="search" placeholder="Product name..." name="search" required="">&nbsp;
-					</form>
-                    <asp:Button ID="Search2" runat="server" Text="Search" OnClick="Search2_Click" />
-				</div>
-				<!-- price range -->
-				<div class="range">
-					<h3 class="agileits-sear-head">Price range</h3>
-					<ul class="dropdown-menu6">
-						<li>
 
-							<div id="slider-range"></div>
-							<input type="text" id="amount" style="border: 0; color: #ffffff; font-weight: normal;" />
-						</li>
-					</ul>
-				</div>
-				
-			<!-- //product right -->
-		</div>      
-            
-        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
-            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-            <EditRowStyle BackColor="#999999" />
-            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-        </asp:GridView>            
-	</div>
-        </div>
-                    
-&nbsp; </form>
-    
-    <p>
-        &nbsp;</p>
-</body>
 
-</html>
+
+    <div id="dialog" style="display: none">
+        <asp:GridView ID="GridView2" runat="server" Width="950px" CellPadding="3" CssClass="table table-striped" margin-top="100" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" AllowPaging="True" OnRowCommand="GridView1_RowCommand" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
+            <Columns>
+                <asp:TemplateField>
+                     <HeaderStyle CssClass="HiddenCol" />
+                    <ItemTemplate>
+                        <div class="text-left">
+                            Product Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label2" runat="server" Text='<%# Bind("ProductName") %>'></asp:Label>
+                            <br />
+                            Price:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label4" runat="server" Text='<%# Bind("Price") %>'></asp:Label>
+                            <br />
+                            Brand:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label5" runat="server" Text='<%# Bind("Brand") %>'></asp:Label>
+                            <br />
+                            Product Details:
+                           &nbsp;&nbsp;&nbsp;<asp:Label ID="Label1" runat="server" Text='<%# Bind("Details") %>'></asp:Label>
+                            <br />
+                            Brand Details:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label3" runat="server" Text='<%# Bind("BrandDetails") %>'></asp:Label>
+                            <br />
+                    </ItemTemplate>
+                    <ItemStyle Height="20%" Width="50%"></ItemStyle>
+                </asp:TemplateField>
+
+
+            </Columns>
+            <FooterStyle BackColor="White" ForeColor="#000066" />
+            <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+            <RowStyle ForeColor="#000066" />
+            <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+            <SortedAscendingHeaderStyle BackColor="#007DBB" />
+            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+            <SortedDescendingHeaderStyle BackColor="#00547E" />
+        </asp:GridView>
+
+    </div>
+    <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ecommerceConnectionString %>" SelectCommand="SELECT image.image as Image,product.product_id as ProductId,product.product_name as ProductName,product.product_detail as Details, product.product_price as Price,brand.brand_name as Brand,brand.brand_detail as BrandDetails FROM image INNER JOIN product ON image.product_id=product.product_id  INNER JOIN brand ON brand.brand_id=product.brand_id ">
+        <FilterParameters>
+            <asp:ControlParameter Name="Country" ControlID="txtSearch" PropertyName="Text" />
+        </FilterParameters>
+    </asp:SqlDataSource>
+
+    <asp:Label ID="LblSuccessMsg" Text="" runat="server" ForeColor="Green" />
+    <asp:Label ID="LblErrorMsg" Text="" runat="server" ForeColor="Red" />
+
+</asp:Content>
+
 
 
 

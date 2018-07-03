@@ -19,7 +19,6 @@ namespace Test1
 
         private Boolean loginValidation(account account)
         {
-            account.name = txtEmail.Text;
             account.email_address = txtEmail.Text;
             account.password = txtPassword.Text;
             string connnectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
@@ -39,7 +38,7 @@ namespace Test1
                     rdr.Read();
                     return true;
                 }
-                return false;              
+                return false;             
                 
             }
 
@@ -50,6 +49,7 @@ namespace Test1
 
             if (loginValidation(account))
             {
+                Session["UserId"] = txtEmail.Text;
                 Response.Redirect("Homepage.aspx");
             }
             else

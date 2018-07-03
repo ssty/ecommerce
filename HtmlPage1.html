@@ -1,0 +1,53 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CS.aspx.cs" Inherits="_Default" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        Username:
+        <input id="txtUsername" type="text" onkeyup="ClearMessage()" />
+        <input id="btnCheck" type="button" value="Show Availability" onclick="CheckAvailability()" />
+        <br />
+        <span id="message"></span>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript">
+            function CheckAvailability() {
+                var username = $("#txtUsername").val();
+                $.ajax({
+                    type: "POST",
+                    url: "CS.aspx/CheckUserName",
+                    data: '{username: "' + username + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var message = $("#message");
+                        if (response.d) {
+                            //Username available.
+                            message.css("color", "green");
+                            message.html("Username is available");
+                        }
+                        else {
+                            //Username not available.
+                            message.css("color", "red");
+                            message.html("Username is NOT available");
+                        }
+                    }
+                });
+            };
+
+            function ClearMessage() {
+                $("#message").html("");
+            };
+        </script>
+    </form>
+</body>
+</html>

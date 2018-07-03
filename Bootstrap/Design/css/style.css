@@ -74,10 +74,12 @@ input[type='text'], select {
     border-radius: 3px;
     color: #999999;
     float: left;
-    height: 22px;
+    height: 92px;
     padding: 0 5px;
     position: relative;
-    width: 185px;
+    width: 323px;
+    top: 0px;
+    left: 2px;
 }
 
 a:hover{

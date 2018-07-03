@@ -3,57 +3,41 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #myDIV {
+            width: 100%;
+            padding: 50px 0;
+            text-align: center;
+            background-color: lightblue;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div>
-        </div>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Height="273px" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" style="text-align: center" Width="535px">
-            <Columns>
-                <asp:TemplateField HeaderText="Movie ID">
-                    <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("movieid") %>'></asp:Label>
-                    </ItemTemplate>
-                    <ItemStyle HorizontalAlign="Center" />
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Movie Name">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("moviename") %>'></asp:Label>
-                    </ItemTemplate>
-                    <ItemStyle HorizontalAlign="Center" />
-                </asp:TemplateField>
 
+    <p>Click the "Try it" button to toggle between hiding and showing the DIV element:</p>
 
-                <asp:TemplateField HeaderText="Picture">
-                    <EditItemTemplate>
-                        <asp:FileUpload ID="FileUpload1" runat="server" />
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:Image ID="Image1" runat="server" ImageUrl='<%# Eval("picture") %>' />
-                    </ItemTemplate>
-                    <ItemStyle HorizontalAlign="Center" />
-                </asp:TemplateField>
+    <button onclick="myFunction()">Try it</button>
 
+    <div id="myDIV">
+        This is my DIV element.
+    </div>
 
-                <asp:CommandField ShowEditButton="True" />
-            </Columns>  
-            <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
-            <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
-            <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
-            <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
-            <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#FFF1D4" />
-            <SortedAscendingHeaderStyle BackColor="#B95C30" />
-            <SortedDescendingCellStyle BackColor="#F1E5CE" />
-            <SortedDescendingHeaderStyle BackColor="#93451F" />
-        </asp:GridView>
-        <p>
-            &nbsp;</p>
-    </form>
+    <p><b>Note:</b> The element will not take up any space when the display property set to "none".</p>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myDIV");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+
 </body>
 </html>
+

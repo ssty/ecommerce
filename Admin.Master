@@ -1,0 +1,87 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="Test1.Admin" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="/Bootstrap/Design/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/Bootstrap/Design/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/Bootstrap/Design/css/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+         <nav class="navbar navbar-inverse" style="height:75px; width:100%;  position:fixed";>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="navbar-header col-sm-4 ">
+                    <a class="navbar-brand" href="/Admin/Home">ADMIN DASHBOARD</a>
+                </div>
+                <div class="nav navbar-nav navbar-right col-sm-4">
+                    <div class="right navbar-right">
+                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text=" Sign Out" CssClass=" btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        </nav>
+     <div class="container">
+         <div class=" row">
+
+             <div class="nav flex-column col-lg-6 " style="position: fixed; z-index: 1; top: 75px; left: 0px; height: 100%; width: 160px; background-color: #111; overflow-x: hidden;">
+
+                 <div class="container">
+                     <div class=" btn-group-lg" style="margin-top: 20px;">
+                         <table class="table-condensed" style="background-color: #111;">
+                             <tr>
+                                 <td><a href="AdminHomepage.aspx" style="color: darkgrey; font-size: large;" role="button">Home</a><br />
+                                     <br />
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td><a href="adminProductView.aspx" style="color: darkgrey; font-size: large;" role="button">Products</a><br />
+                                     <br />
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td><a href="adminBrandSee.aspx" style="color: darkgrey; font-size: large;" role="button">Brands</a><br />
+                                     <br />
+                                 </td>
+                             </tr>
+
+                             <tr>
+                                 <td><a href="adminFavCheck.aspx" style="color: darkgrey; font-size: large;" role="button">Added to</a><br />
+                                     <a href="adminFavCheck.aspx" style="color: darkgrey; font-size: large;" role="button">&nbsp;favourite</a><br />
+                                     <br />
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td><a href="ViewUsers.aspx" style="color: darkgrey; font-size: large;" role="button">Account</a><br />
+                                     <br />
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td><a href="AdminChart.aspx" style="color: darkgrey; font-size: large;" role="button">Charts</a><br />
+                                     <br />
+                                 </td>
+                             </tr>
+
+                         </table>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+         </asp:ContentPlaceHolder>
+     </div>
+
+
+    </form>
+
+</body>
+</html>
