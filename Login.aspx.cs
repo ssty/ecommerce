@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 namespace Test1
 {
@@ -14,7 +15,28 @@ namespace Test1
         account account = new account();
         protected void Page_Load(object sender, EventArgs e)
         {
-                       
+           
+        }
+        [System.Web.Services.WebMethod]
+        public static bool CheckUserName(string email_address)
+        {
+
+            bool status = false;
+            string constr = ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand("checkEmailAddress", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@email_address", email_address.Trim());
+                    conn.Open();
+                    status = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+            }
+
+
+            return status;
         }
 
         private Boolean loginValidation(account account)
@@ -54,8 +76,7 @@ namespace Test1
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert", "alert('Incorrect email or password!');", true);
-                Response.Redirect("Login.aspx");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert", "alert('Incorrect password!');", true);                
             }
         }
     }

@@ -13,6 +13,7 @@ namespace Test1
 {
     public partial class UserMyFav : System.Web.UI.Page
     {
+        string emailCheck;
         string CS = ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,7 +38,7 @@ namespace Test1
             using (SqlConnection con = new SqlConnection(CS)) //we use using to close the connection explicitly
             {
                 con.Open();
-                string emailCheck = Session["UserId"].ToString();
+                emailCheck = Session["UserId"].ToString();
                 SqlCommand cmd = new SqlCommand("select account_id from account where email_address='" + emailCheck + "'  ", con);
 
                 int account_id = (int)cmd.ExecuteScalar();
@@ -96,6 +97,73 @@ namespace Test1
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            string Search = txtSearch.Text;
+            searchFxn(Search, null);
+        }
+        protected void searchFxn(string Search, string i)
+        {
+            if (Search != null)
+            {
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    con.Open();
+                    emailCheck = Session["UserId"].ToString();
+                    SqlCommand cmd2 = new SqlCommand("select account_id from account where email_address='" + emailCheck + "'  ", con);
+                    int account_id = (int)cmd2.ExecuteScalar();
+
+                    SqlCommand cmd1 = new SqlCommand("SELECT image.image,product.product_id,product.product_name,brand.brand_name,product.product_detail,product.product_price,brand.brand_detail FROM image INNER JOIN product ON image.product_id=product.product_id  INNER JOIN brand ON brand.brand_id=product.brand_id", con);
+                    SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
+                    DataTable ds = new DataTable();
+                    if (i == null)
+                    {
+                        SqlCommand cmd = new SqlCommand("spProductSearchINfAV", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter searchParameter = new SqlParameter("@SearchTerm", Search);
+                        SqlParameter accounT = new SqlParameter("@account_id", account_id);
+                        cmd.Parameters.Add(searchParameter);
+                        cmd.Parameters.Add(accounT);                        
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(ds);
+                    }
+                    else if (Search == "0")
+                    {
+                        SqlCommand cmd = new SqlCommand("[spBrandSearchINfAV]", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter searchParameter = new SqlParameter("@SearchTerm", i);
+                        SqlParameter accounT = new SqlParameter("@account_id", account_id);
+                        cmd.Parameters.Add(searchParameter);
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        cmd.Parameters.Add(accounT);
+                        da.Fill(ds);
+                    }
+                    if (ds.Rows.Count > 0)
+                    {
+                        GridView1.DataSource = ds;
+                        GridView1.DataBind();
+                    }
+                    else
+                    {
+                        ds.Rows.Add(ds.NewRow());
+                        GridView1.DataSource = ds;
+                        GridView1.DataBind();
+                        GridView1.Rows[0].Cells.Clear();
+                        GridView1.Rows[0].Cells.Add(new TableCell());
+                        GridView1.Rows[0].Cells[0].ColumnSpan = ds.Columns.Count;
+                        GridView1.Rows[0].Cells[0].Text = "NO DATA FOUND...";
+                        GridView1.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                    }
+                }
+            }
+        }
+
+        protected void btnBrandSearch_Click(object sender, EventArgs e)
+        {
+            string Search = txtBrandSearch.Text;
+            searchFxn("0", Search);
         }
     }
 }

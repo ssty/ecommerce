@@ -52,7 +52,7 @@
                     else
                     { %>
                 <div class="right navbar-right">
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text=" Sign Out" CssClass=" btn btn-primary" />
+                    <asp:Button ID="Button1" runat="server"  OnClick="Button1_Click1" Text=" Sign Out" CssClass=" btn btn-primary" />
                 </div>
                 <%} %>
 
@@ -68,24 +68,24 @@
                         <div class="container-fluid">
                             <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav menu__list">
-                                    <li class="active">
+                                    <li >
                                         <a class="nav-stylehead" href="Homepage.aspx">Home
 										<span class="sr-only">(current)</span>
                                         </a>
                                     </li>
                                     <%if (Session["UserId"] != null)
                                         { %>
-                                    <li class="">
-                                        <a class="nav-stylehead" href="UserMyAccount.aspx">My Account</a>
-                                    </li>
+                                   
                                     <li class="">
                                         <a class="nav-stylehead" href="UserMyFav.aspx">My Favourite</a>
+                                    </li>
+                                     <li class="">
+                                        <a class="nav-stylehead" href="UserMyAccount.aspx">My Account</a>
                                     </li>
                                     <%} %>
                                     <li class="">
                                         <a class="nav-stylehead" href="about.html">About Us</a>
                                     </li>
-
                                 </ul>
                             </div>
                         </div>
@@ -93,25 +93,10 @@
                 </div>
             </div>
         </div>
-        <div class="ads-grid">
-            <div class="container">
-                <!-- tittle heading -->
-                <div class="side-bar col-md-3">
-                    <div class="search-hotel">
-                        <h3 class="agileits-sear-head">Search Here..</h3>
-                        <asp:Panel ID="panelSearch" runat="server">
-                            <h3 class="agileits-sear-head">Product name</h3>
-                            <div style="padding-bottom:0px">
-                                <asp:TextBox ID="txtSearch" runat="server" placeholder="Product name..."  Width="206px" Height="39px"></asp:TextBox>
-                                <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" PostBackUrl="~/UserSearch.aspx" />
-                            </div>
-                        </asp:Panel>
-                    </div>
-                </div>
+        
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
-            </div>
-        </div>
+           
     </form>
 </body>
 </html>

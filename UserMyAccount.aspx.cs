@@ -17,11 +17,15 @@ namespace Test1
         string CS = ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["UserId"] == null)
             {
-                StringBuilder table = new StringBuilder();
-                if (Session["UserId"] != null)
+                Response.Redirect("Login.aspx");
+            }
+            else
+            {
+                if (!IsPostBack)
                 {
+                    StringBuilder table = new StringBuilder();
                     accountName = Session["UserId"].ToString();
                     using (SqlConnection con = new SqlConnection(CS))
                     {
@@ -40,41 +44,80 @@ namespace Test1
                         }
                     }
                 }
-
-
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void Button1_Click1(object sender, EventArgs e)
         {
+
             using (SqlConnection con = new SqlConnection(CS))
             {
                 try
                 {
                     con.Open();
-                    string password = TextBox2.Text;
-                    accountName = Session["UserId"].ToString();
-                    SqlCommand cmd2 = new SqlCommand("select account_id from account where email_address='" + accountName.Trim() + "'", con);
-                    int account_id = Convert.ToInt32(cmd2.ExecuteScalar());
-                    string sql = "ChangePassword";
-                    SqlCommand cmd1 = new SqlCommand(sql, con);
-                    cmd1.CommandType = CommandType.StoredProcedure;
-                    SqlParameter para1 = new SqlParameter("account_id", account_id);
-                    SqlParameter para2 = new SqlParameter("password", password);
-                    cmd1.Parameters.Add(para1);
-                    cmd1.Parameters.Add(para2);
-                    cmd1.ExecuteNonQuery();                   
-                    Label1.Text = " Uploaded successfully";
+                    string name = Request["name"];
+                    string password = Request["password"];
+                    string confrimPassword = Request["confirm_password"];
+                    if (password == confrimPassword)
+                    {
+                        accountName = Session["UserId"].ToString();
+                        SqlCommand cmd2 = new SqlCommand("select account_id from account where email_address='" + accountName.Trim() + "'", con);
+                        int account_id = Convert.ToInt32(cmd2.ExecuteScalar());
+                        string sql = "ChangePassword";
+                        SqlCommand cmd1 = new SqlCommand(sql, con);
+                        cmd1.CommandType = CommandType.StoredProcedure;
+                        SqlParameter para1 = new SqlParameter("account_id", account_id);
+                        SqlParameter para2 = new SqlParameter("password", password);
+                        SqlParameter para3 = new SqlParameter("name", name);
+                        cmd1.Parameters.Add(para1);
+                        cmd1.Parameters.Add(para2);
+                        cmd1.Parameters.Add(para3);
+                        cmd1.ExecuteNonQuery();
+                        Label4.Text = " Uploaded successfully";
+                    }
+                    else
+                    {
+                        Label4.Text = "Please give correct information";
+                    }
+
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Label1.Visible = true;
-                    Label1.Text = ex.Message;
+                    Label3.Visible = true;
+                    Label3.Text = ex.Message;
 
                 }
 
             }
+        }
+
+        protected void btnDeactivate_Click1(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(CS)) //we use using to close the connection explicitly
+                {
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Are you sure you want to deactivate your account?')</script>");
+
+                    string email = Session["UserId"].ToString();
+                    string sql = "delMyAccount";
+                    SqlCommand cmd1 = new SqlCommand(sql, con);
+                    con.Open();
+                    cmd1.CommandType = CommandType.StoredProcedure;
+                    SqlParameter para1 = new SqlParameter("email", email);
+                    cmd1.Parameters.Add(para1);
+                    cmd1.ExecuteNonQuery();
+                    Session.Clear();
+                    Response.Redirect("Homepage.aspx");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
     }
 }

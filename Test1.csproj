@@ -129,7 +129,6 @@
     <Content Include="UserHomepage.aspx" />
     <Content Include="UserMyAccount.aspx" />
     <Content Include="UserMyFav.aspx" />
-    <Content Include="UserSearch.aspx" />
     <Content Include="ViewDetails.aspx" />
     <Content Include="WebForm2.aspx" />
     <Content Include="WebForm3.aspx" />
@@ -602,13 +601,6 @@
     </Compile>
     <Compile Include="UserMyFav.aspx.designer.cs">
       <DependentUpon>UserMyFav.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="UserSearch.aspx.cs">
-      <DependentUpon>UserSearch.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserSearch.aspx.designer.cs">
-      <DependentUpon>UserSearch.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDetails.aspx.cs">
       <DependentUpon>ViewDetails.aspx</DependentUpon>

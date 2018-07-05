@@ -28,76 +28,99 @@
             });
         }
     </script>
-   
 
-        <div id="popupdiv" title="modal dialog" style="display: none;">
-            Product Id:
+
+    <div class="side-bar col-md-3" style="height: 500px; width: 320px;">
+        <div class="search-hotel">
+            <h3 class="agileits-sear-head">Search Here..</h3>
+            <asp:Panel ID="panelSearch" runat="server">
+                <h3 class="agileits-sear-head">Product name</h3>
+                <div style="padding-bottom: 0px; clear: both">
+                    <asp:TextBox ID="txtSearch" runat="server" placeholder="Product name..." Width="206px" Height="39px"></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" CssClass="btn" Height="39px" />
+                </div>
+                <h3 class="agileits-sear-head" style="clear: both">Brand name</h3>
+                <div style="padding-bottom: 0px;">
+                    <asp:TextBox ID="txtBrandSearch" runat="server" placeholder="Brand name..." Width="206px" Height="39px"></asp:TextBox>
+                    <asp:Button ID="btnBrandSearch" runat="server" OnClick="btnBrandSearch_Click1" Text="Search" CssClass="btn" Height="39px" />
+                </div>
+
+            </asp:Panel>
+        </div>
+    </div>
+
+
+
+    <div id="popupdiv" title="modal dialog" style="display: none;">
+        Product Id:
                     <label id="lblId"></label>
-            <br />
-            Product Name:
+        <br />
+        Product Name:
                     <label id="lblName"></label>
-            <br />
-            Brand Name:
+        <br />
+        Brand Name:
                     <label id="lblBrand"></label>
-            <br />
-            Price:
+        <br />
+        Price:
                     <label id="lblPrice"></label>
-            <br />
-            Product Detail:
+        <br />
+        Product Detail:
                     <label id="lblProductDetail"></label>
-            <br />
-            Brand Detail:
+        <br />
+        Brand Detail:
                     <label id="lblBrandDetail"></label>
-        </div>
-        <h1>
-            <asp:Label ID="Label1" runat="server" Text="Label" CssClass=" pull-right" Font-Size="X-Small" Font-Bold="true" Font-Italic="true"></asp:Label>
-        </h1>
-        <div class="col col-lg-9">
-            <asp:Label ID="ErrorMsg" Text="" runat="server" ForeColor="Red" />
+    </div>
 
-            <table style="position: center">
-                <tr>
-                    <td>
-                        <div class="GridviewDiv">
-                            <asp:GridView runat="server" ID="gvDetails" CellPadding="3" CssClass="table table-striped" margin-top="100" OnRowCommand="gvDetails_RowCommand" AllowPaging="True" AutoGenerateColumns="false" Width="1020px" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
-                                <HeaderStyle CssClass="headerstyle" />
-                                <Columns>
-                                    <asp:TemplateField HeaderText="Image" SortExpression="Image" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center">
-                                        <ItemTemplate>
-                                            <asp:Image ID="img" Width="150px" Height="150px" runat="server" ImageUrl='<%# Eval("image") %>'></asp:Image>
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" Width="20%"></ItemStyle>
-                                    </asp:TemplateField>
-                                    <asp:BoundField DataField="product_id" HeaderText="Product Id" />
-                                    <asp:BoundField DataField="product_name" HeaderText="Product Name" />
-                                    <asp:BoundField DataField="brand_name" HeaderText="Brand Name" />
-                                    <asp:BoundField DataField="product_price" HeaderText="Price" />
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <a href="#" class="gridViewToolTip" onclick='openPopup("<%# Eval("product_id")%>","<%# Eval("product_name")%>","<%# Eval("product_price")%>","<%# Eval("product_detail")%>","<%# Eval("brand_name")%>","<%# Eval("brand_detail")%>")'>View Details</a>
-                                            <br />
-                                            <br />
-                                            <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument="<%# Container.DataItemIndex %>" CommandName="Select" Text="Add to favourite"></asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <FooterStyle BackColor="White" ForeColor="#000066" />
-                                <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-                                <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-                                <RowStyle ForeColor="#000066" />
-                                <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-                                <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                                <SortedAscendingHeaderStyle BackColor="#007DBB" />
-                                <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                                <SortedDescendingHeaderStyle BackColor="#00547E" />
-                            </asp:GridView>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <asp:Label ID="LblSuccessMsg" Text="" runat="server" ForeColor="Green" />
-        <asp:Label ID="LblErrorMsg" Text="" runat="server" ForeColor="Red" />
+    <asp:Label ID="Label1" runat="server" ForeColor="Green"></asp:Label>
+    <div class="col col-lg-9">
+        <table style="position: center">
+            <tr>
+                <td>
+                    <div class="GridviewDiv">
+                        <asp:GridView runat="server" ID="gvDetails" OnPageIndexChanging="gvDetails_PageIndexChanging" GridLines="None" CellPadding="3" AllowPaging="true" CssClass="table table-striped" margin-top="100" OnRowCommand="gvDetails_RowCommand" AutoGenerateColumns="false" Width="1020px" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" PagerSettings-PageButtonCount="10" PageSize="5">
+                            <HeaderStyle CssClass="headerstyle" />
+                            <Columns>
+                                <asp:TemplateField HeaderText="Image" SortExpression="Image" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Image ID="img" Width="150px" Height="150px" runat="server" ImageUrl='<%# Eval("image") %>'></asp:Image>
+                                    </ItemTemplate>
+                                    <ItemStyle HorizontalAlign="Center" Width="20%"></ItemStyle>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="product_id" HeaderText="Product Id" />
+                                <asp:BoundField DataField="product_name" HeaderText="Product Name" />
+                                <asp:BoundField DataField="brand_name" HeaderText="Brand Name" />
+                                <asp:BoundField DataField="product_price" HeaderText="Price" />
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <a href="#" class="gridViewToolTip" onclick='openPopup("<%# Eval("product_id")%>","<%# Eval("product_name")%>","<%# Eval("product_price")%>","<%# Eval("product_detail")%>","<%# Eval("brand_name")%>","<%# Eval("brand_detail")%>")'>View Details</a>
+                                        <br />
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument="<%# Container.DataItemIndex %>" CommandName="Select" Text="Add to favourite"></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <FooterStyle BackColor="White" ForeColor="#000066" />
+                            <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+                            <RowStyle ForeColor="#000066" />
+                            <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#007DBB" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#00547E" />
+                        </asp:GridView>
+                    </div>
+                </td>
+            </tr>
+            <asp:Label ID="LblSuccessMsg" Text="" runat="server" ForeColor="Green" />
+            <asp:Label ID="LblErrorMsg" Text="" runat="server" ForeColor="Red" />
+        </table>
+    </div>
 </asp:Content>
 
 
