@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/usermaster.Master" AutoEventWireup="true" CodeBehind="UserMyAccount.aspx.cs" Inherits="Test1.UserMyAccount" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -20,12 +21,11 @@
             </asp:Panel>
         </div>
     </div>
-
     <div class="col col-lg-9" style="position: center;">
         <div class="panel panel-info" style="width: 1020px; height: 500px; background-color: #F8F8F8;">
             <div class="panel-body">
                 <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-                    <button id="editBtn" type="button" class="btn btn-primary pull-right" onclick="check1();" data-toggle="modal" data-target="#myModal" style="height: 40px;">Edit Profile</button>
+                    <button id="editBtn" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" style="height: 40px;">Edit Profile</button>
                 </div>
                 <div class="row">
                     <div class="col-md-3 col-lg-3 ">
@@ -61,13 +61,82 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="myModalThree" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="reset" class="close" data-dismiss="modal" onclick="ClearFields();" style="margin-top: 0px; margin-bottom: 0px;">&times;</button>
+                    <h4 class="modal-title" style="color: cornflowerblue;">Deactivate Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <div class="row">
+                                <label>
+                                    Enter password to deactivate your account
+                                    <br />
+                                    <br />
+                                </label>
+                            </div>
+                            <div class="row">
+                                <label>
+                                    Password:
+                <asp:TextBox ID="passwordForDeactivate" runat="server" TextMode="Password" CssClass="form-control" required onblur="checkEmailAddress()" Style="height: 30px; width: 350px; margin-bottom: 20px;"></asp:TextBox>
+                                </label>
+                                <asp:Label ID="Label6" runat="server" ForeColor="Red"></asp:Label>
+                                <span id="message1"></span>
+                                <span style="color: red"></span>
+                            </div>
+                            <div class="row">
+                                <asp:CheckBox ID="CheckBox1" runat="server" required="required" />
+                                <asp:Label ID="Label7" runat="server">Yes,I want to deactivate my account.</asp:Label>
+                            </div>
+                            <script>
+
+                                function checkEmailAddress() {
+                                    var email_address = $("#ContentPlaceHolder1_passwordForDeactivate").val();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "UserMyAccount.aspx/CheckUserName",
+                                        data: '{email_address: "' + email_address + '" }',
+                                        contentType: "application/json; charset=utf-8",
+                                        success: function (response) {
+                                            var message = $("#message1");
+                                            if (response.d) {
+                                                message.css("color", "green");
+                                                message.html("");
+                                            }
+                                            else {
+                                                message.css("color", "red");
+                                                message.html("Password didn't match!!");
+
+                                            }
+                                        }
+                                    });
+                                };
+                                function ClearMessage() {
+                                    $("#message").html("");
+                                };
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <asp:Button ID="confirmDeactivate" UseSubmitBehavior="false" class="btn btn-default" PostBackUrl="~/Homepage.aspx" OnClick="confirmDeactivate_Click1" OnClientClick="" runat="server" Text="Deactivate Account" />
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="myModalTwo" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" style="margin-top: 0px; margin-bottom: 0px;">&times;</button>
-                    <h4 class="modal-title" >Deactivate Account</h4>
+                    <button type="reset" class="close" data-dismiss="modal" style="margin-top: 0px; margin-bottom: 0px;">&times;</button>
+                    <h4 class="modal-title" style="color: cornflowerblue;">Deactivate Account</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel panel-info">
@@ -78,7 +147,7 @@
                                         <label style="color: red;">
                                             Are you sure you want to deactivate account?
                                         </label>
-                                        <label style="font-size:small; font-style:italic;">
+                                        <label style="font-size: small; font-style: italic;">
                                             Deactivating will permanently delete your account. Your data will also be deleted. Make sure if you want to deactivate your account. If you dont want to deactivate press cross button else click deactivate account button... 
                                         </label>
                                         <br />
@@ -90,49 +159,48 @@
                     </div>
                 </div>
                 <div id="btn" class="modal-footer">
-                     <asp:Button ID="btnDeactivate" class="btn btn-default" PostBackUrl="~/Homepage.aspx" OnClientClick="" UseSubmitBehavior="false" runat="server" Text="Deactivate Account" OnClick="btnDeactivate_Click1" />
-               </div>
+                    <asp:Button ID="btnDeactivate" class="btn btn-default" OnClientClick="" data-dismiss="modal" data-toggle="modal" data-target="#myModalThree" runat="server" Text="Deactivate Account" />
+                </div>
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" style="margin-top: 0px; margin-bottom: 0px;">&times;</button>
+                    <button type="reset" class="close" data-dismiss="modal" onclick="ClearFields();" style="margin-top: 0px; margin-bottom: 0px;">&times;</button>
                     <h4 class="modal-title">Edit Profile</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel panel-info">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-3 col-lg-3 ">
-                                    <div class=" col-md-9 col-lg-9">
-                                        <label>
-                                            Name:
+                                <div class=" col-md-9 col-lg-9">
+                                    <label>
+                                        Name:
   <input name="name" id="name" type="text" class="form-control" required="required" style="height: 30px; width: 350px; margin-bottom: 20px;" />
-                                        </label>
-                                        <label>
-                                            Old Password:
-  <input name="oldPassword" id="oldPassword" type="password" class="form-control" required="required" style="height: 30px; width: 350px; margin-bottom: 20px;"  />
-                                        </label>
-                                        <br>
-                                        <label>
-                                            New Password:
+                                    </label>
+                                    <label>
+                                        Old Password:
+  <input name="oldPassword" id="oldPassword" type="password" class="form-control" required="required" style="height: 30px; width: 350px; margin-bottom: 20px;" />
+                                    </label>
+                                    <br>
+                                    <label>
+                                        New Password:
   <input name="password" id="password" type="password" class="form-control" required="required" style="height: 30px; width: 350px; margin-bottom: 20px;" onkeyup='check();' />
-                                        </label>
-                                        <br>
-                                        <label>
-                                            Confirm password:   
+                                    </label>
+                                    <br>
+                                    <label>
+                                        Confirm password:   
   <input type="password" name="confirm_password" id="confirm_password" class="form-control" required="required" style="height: 30px; width: 350px; margin-bottom: 20px;" onkeyup='check();' />
-                                            <span id='message'></span>
-                                        </label>
-                                        <br />
-                                        <asp:Label ID="Label3" runat="server"></asp:Label>
-                                    </div>
+                                    </label>
+                                    <br />
+                                    <asp:Label ID="Label3" runat="server"></asp:Label>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <span id='message' class="text-center" style="width: 150px; position: center; margin-left: 30px;"></span>
                             </div>
                         </div>
                     </div>
@@ -146,13 +214,23 @@
     <script>       
         var check = function () {
             if (document.getElementById('password').value ==
-                document.getElementById('confirm_password').value) {
+                document.getElementById('confirm_password').value && document.getElementById('password').value != "" && document.getElementById('confirm_password').value != "") {
                 document.getElementById('message').style.color = 'green';
                 document.getElementById('message').innerHTML = 'Passwords Match!!!';
-            } else {
+            } else if (document.getElementById('password').value != "" && document.getElementById('confirm_password').value != "") {
                 document.getElementById('message').style.color = 'red';
                 document.getElementById('message').innerHTML = 'Passwords Do Not Match!!';
             }
         }
+        function ClearFields() {
+
+            document.getElementById("name").value = "";
+            document.getElementById("oldPassword").value = "";
+            document.getElementById("password").value = "";
+            document.getElementById("confirm_password").value = "";
+            document.getElementById("message").innerHTML = "";
+            document.getElementById("passwordForDeactivate").value = "";
+        }
+
     </script>
 </asp:Content>

@@ -23,7 +23,6 @@ namespace Test1
                 if (PreviousPage != null && PreviousPage.IsCrossPagePostBack)
                 {
                         Label1.Text = "Your account has been successfully deactivated!!";
-                
                 }
                 BindGridview();
             }
@@ -97,15 +96,7 @@ namespace Test1
                             SqlParameter param2 = new SqlParameter("account_id ", account_id);
                             cmd2.Parameters.Add(param1);
                             cmd2.Parameters.Add(param2);
-                            SqlDataReader rdr = cmd2.ExecuteReader();
-                            //int rdr = (int)cmd2.ExecuteScalar();
-                            //if (rdr == 1)
-                            //{
-                            //    LblErrorMsg.Text = "This product has already been added to favourite list!!";
-                            //    LblSuccessMsg.Text = "";
-                            //}
-                            //else
-                            //{
+                            SqlDataReader rdr = cmd2.ExecuteReader();                            
                             if (rdr.HasRows)
                             {
                                 rdr.Read();

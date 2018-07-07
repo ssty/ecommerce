@@ -13,78 +13,25 @@
 </head>
 <body>
     <form runat="server">
-
-        <div class="container">
-            <h2>Modal Example</h2>
-            <!-- Trigger the modal with a button -->
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="panel panel-info">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-3 col-lg-3 ">
-                                            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/profile_icon.png" Height="200px" Width="200px" />
-
-                                            <div class=" col-md-9 col-lg-9">
-                                                <table class="table table-user-information">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Name:</td>
-                                                            <td>
-                                                                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-                                                                <asp:Label ID="Label1" runat="server"></asp:Label>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Email Address:</td>
-                                                            <td>
-                                                                <asp:Label ID="Label2" runat="server"></asp:Label>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Address:</td>
-                                                            <td>
-                                                                <asp:Label ID="Label3" runat="server"></asp:Label>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>Contact Number:</td>
-                                                            <td>
-                                                                <asp:Label ID="Label4" runat="server"></asp:Label>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+        <div class=" col-md-9 col-lg-9">
+            <label>
+                Activate you email address
+            </label>
+            <label>
+                Your activation code:
+  <input name="code" id="code" type="text" class="form-control" required="required" style="height: 30px; width: 350px; margin-bottom: 20px;" />
+            </label>
+            <br />
+            <asp:Label ID="Label3" runat="server"></asp:Label>
 
         </div>
+        <div class="row">
+            <span id='message3' class="text-center" style="width: 150px; position: center; margin-left: 30px;"></span>
+        </div>
+                <div id="btnHide">
+                    <asp:Button ID="Button2" class="btn btn-default" OnClientClick="return check();" runat="server" Text="Verify Email" OnClick="Button2_Click" />
+                </div>
+        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     </form>
 </body>
 </html>

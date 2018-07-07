@@ -10,6 +10,5 @@ namespace Test1.ExtendedModel
         public string ProductName { get; set; }
         public string ProductDetail { get; set; }
         public string ProductPrice { get; set; }
-       
-}
+    }
 }

@@ -3,10 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-     <div style="top: 350px;margin-top:130px; margin-left:-30px;" >
-    <asp:GridView ID="GridView1" runat="server" CellPadding="3" Width="1319px"  CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" AllowPaging="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
+      <div style="  margin-left:130px;  margin-top: 140px;">
+    <asp:GridView ID="GridView1" runat="server" CellPadding="3" border CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" AllowPaging="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
         <Columns>
-            <asp:TemplateField HeaderText="Image"  SortExpression="Image"  ItemStyle-Width="30%" ItemStyle-HorizontalAlign="Center">
+            <asp:TemplateField HeaderText="Image"  SortExpression="Image"   ItemStyle-Width="30%" ItemStyle-HorizontalAlign="Center">
                 <ItemTemplate>
                     <asp:Image ID="img" Width="150px" Height="150px" runat="server" ImageUrl='<%# Bind("Image") %>'></asp:Image>
                 </ItemTemplate>

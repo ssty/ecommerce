@@ -28,9 +28,9 @@
                      </ul>
                  </div>
              </div>
-        <div style=" width: 50%; margin-left: -30px;margin-top:50px;">
+        <div style="  margin-left: 130px; margin-right: 130px; margin-top:70px;">
             <asp:GridView ID="GridView1" UseAccessibleHeader="true" CssClass="table table-hover table-striped"
-                ShowHeaderWhenEmpty="true" runat="server" Width="1319px" Height="100%"
+                ShowHeaderWhenEmpty="true" runat="server"  Height="100%"
                 OnRowDeleting="GridView1_RowDeleting" OnRowUpdating="GridView1_RowUpdating"
                 OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowCommand="GridView1_RowCommand"
                 OnRowEditing="GridView1_RowEditing" AutoGenerateColumns="false" BackColor="White" 

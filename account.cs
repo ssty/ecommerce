@@ -25,6 +25,7 @@ namespace Test1
         public string name { get; set; }
         public string email_address { get; set; }
         public string password { get; set; }
+        public string activation_code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contact_number> contact_number { get; set; }

@@ -1,3 +1,9 @@
+S:\Test1\Test1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+S:\Test1\Test1\bin\roslyn\Microsoft.CodeAnalysis.dll
+S:\Test1\Test1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+S:\Test1\Test1\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+S:\Test1\Test1\bin\roslyn\System.IO.Compression.dll
+S:\Test1\Test1\bin\roslyn\VBCSCompiler.exe
 S:\Test1\Test1\bin\Test1.dll.config
 S:\Test1\Test1\bin\Test1.dll
 S:\Test1\Test1\bin\Test1.pdb
@@ -8,13 +14,9 @@ S:\Test1\Test1\bin\roslyn\csi.exe
 S:\Test1\Test1\bin\roslyn\csi.exe.config
 S:\Test1\Test1\bin\roslyn\csi.rsp
 S:\Test1\Test1\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-S:\Test1\Test1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 S:\Test1\Test1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-S:\Test1\Test1\bin\roslyn\Microsoft.CodeAnalysis.dll
 S:\Test1\Test1\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-S:\Test1\Test1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 S:\Test1\Test1\bin\roslyn\Microsoft.CSharp.Core.targets
-S:\Test1\Test1\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 S:\Test1\Test1\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 S:\Test1\Test1\bin\roslyn\Microsoft.VisualBasic.Core.targets
 S:\Test1\Test1\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -24,7 +26,6 @@ S:\Test1\Test1\bin\roslyn\System.Console.dll
 S:\Test1\Test1\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 S:\Test1\Test1\bin\roslyn\System.Diagnostics.Process.dll
 S:\Test1\Test1\bin\roslyn\System.Diagnostics.StackTrace.dll
-S:\Test1\Test1\bin\roslyn\System.IO.Compression.dll
 S:\Test1\Test1\bin\roslyn\System.IO.FileSystem.dll
 S:\Test1\Test1\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 S:\Test1\Test1\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -47,14 +48,11 @@ S:\Test1\Test1\bin\roslyn\System.Xml.XPath.XDocument.dll
 S:\Test1\Test1\bin\roslyn\vbc.exe
 S:\Test1\Test1\bin\roslyn\vbc.exe.config
 S:\Test1\Test1\bin\roslyn\vbc.rsp
-S:\Test1\Test1\bin\roslyn\VBCSCompiler.exe
 S:\Test1\Test1\bin\roslyn\VBCSCompiler.exe.config
 S:\Test1\Test1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 S:\Test1\Test1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-S:\Test1\Test1\obj\Debug\Test1.csprojResolveAssemblyReference.cache
 S:\Test1\Test1\obj\Debug\Test1.csproj.CoreCompileInputs.cache
 S:\Test1\Test1\obj\Debug\Test1.csproj.CopyComplete
 S:\Test1\Test1\obj\Debug\Test1.dll
 S:\Test1\Test1\obj\Debug\Test1.pdb
-S:\Test1\Test1\bin\EntityFramework.xml
-S:\Test1\Test1\bin\EntityFramework.SqlServer.xml
+S:\Test1\Test1\obj\Debug\Test1.csprojResolveAssemblyReference.cache

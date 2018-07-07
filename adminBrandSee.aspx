@@ -12,13 +12,14 @@
             </ul>
         </div>
     </div>
-     <div style=" width: 50%; margin-left: -30px;margin-top:50px;">
-           <asp:GridView ID="GridView1" runat="server" CellPadding="3" Width="1319px" CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" AllowPaging="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" DataKeyNames="brand_id">
+   
+     <div style="  margin-left:130px; margin-top:70px;">
+           <asp:GridView ID="GridView1" runat="server" CellPadding="3" CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" AllowPaging="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" DataKeyNames="brand_id">
             <Columns>
-                <asp:BoundField DataField="brand_id" HeaderText="brand_id" ReadOnly="True" SortExpression="brand_id" />
+                <asp:BoundField DataField="brand_id" HeaderStyle-Width="100px" HeaderText="brand_id" ReadOnly="True" SortExpression="brand_id" />
                 <asp:BoundField DataField="brand_name" HeaderText="brand_name" SortExpression="brand_name" />
-                <asp:BoundField DataField="brand_detail" HeaderText="brand_detail" SortExpression="brand_detail" />
-
+                <asp:BoundField DataField="brand_detail" HeaderStyle-Width="800px" HeaderText="brand_detail" SortExpression="brand_detail" />
+              
             </Columns>
             <FooterStyle BackColor="White" ForeColor="#000066" />
             <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />

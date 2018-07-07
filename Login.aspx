@@ -23,7 +23,7 @@
                         <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" onblur="checkEmailAddress()" CssClass="form-control" required></asp:TextBox>
                         <span id="message"></span>
                         <span style="color: red"></span>
-                    </div>
+                    </div>z
                     <div class="clearfix">
                     </div>
                     <script type="text/javascript">
@@ -75,7 +75,6 @@
     </div>
     <script>
         function ClearFields() {
-
             document.getElementById("txtEmail").value = "";
             document.getElementById("txtPassword").value = "";
         }

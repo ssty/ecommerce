@@ -2,6 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="col-md-8 col-md-offset-2">
@@ -14,14 +17,41 @@
         <div class="form-group col-md-6">
             <label for="">Product Name  :</label>
             <div class="clearfix">
-                <asp:TextBox ID="txtName" runat="server" Height="50px" TextMode="SingleLine" CssClass="form-control" required></asp:TextBox>
+                <asp:TextBox ID="txtName" runat="server" Height="50px" TextMode="SingleLine" onblur="checkProduct()" CssClass="form-control" required></asp:TextBox>
+                <span id="message"></span>
+                <span style="color: red"></span>
+                <script type="text/javascript">
+                    function checkProduct() {
+                        var product_name = $("#ContentPlaceHolder1_txtName").val();
+                        $.ajax({
+                            type: "POST",
+                            url: "AddProduct.aspx/checkProduct",
+                            data: '{product_name: "' + product_name + '" }',
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                var message = $("#message");
+                                if (response.d) {
+                                    message.css("color", "red");
+                                    message.html("Product already exist!!");
+
+                                }
+                                else {
+                                    $("#message").html("");
+                                }
+                            }
+                        });
+                    };
+                    function ClearMessage() {
+                        $("#message").html("");
+                    };
+                </script>
             </div>
         </div>
 
         <div class="form-group col-md-6">
             <label for="">Product Price:</label>
             <div class="clearfix">
-                <asp:TextBox ID="txtPrice" runat="server" Height="50px" CssClass="form-control" required TextMode="SingleLine"></asp:TextBox>
+                <asp:TextBox ID="txtPrice" runat="server" Height="50px" onblur="checkInp()" CssClass="form-control" required TextMode="SingleLine"></asp:TextBox>
             </div>
         </div>
 
@@ -48,9 +78,23 @@
 
         <div class="form-group col-md-6" style="margin-top: 0px;">
             <fieldset>
-                <asp:Button ID="BtnLogin" runat="server" Text="Save" class="btn btn-primary" OnClick="BtnLogin_Click" />
+                <asp:Button ID="BtnLogin" runat="server" Text="Save" class="btn btn-primary" OnClientClick="clearLabel()" OnClick="BtnLogin_Click" />
             </fieldset>
         </div>
-        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+        <asp:Label ID="Label1" runat="server" Font-Bold="true" ForeColor="Red" Text=""></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="" Font-Bold="true" ForeColor="Green"></asp:Label>
     </div>
+    <script>
+        function checkInp() {
+            var x = document.getElementById("ContentPlaceHolder1_txtPrice").value;
+            if (isNaN(x)) // this is the code I need to change
+            {
+                alert("Must integer numbers");
+                return false;
+            }
+        }
+        function clearLabel() {
+            document.getElementById("Label1") = "";
+        }
+    </script>
 </asp:Content>

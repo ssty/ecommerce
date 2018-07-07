@@ -48,7 +48,6 @@ namespace Test1
                         dr["product_price"] = ds.Tables[0].Rows[0]["product_price"].ToString();
                         dr["brand_name"] = ds.Tables[0].Rows[0]["brand_name"].ToString();
                         dr["product_detail"] = ds.Tables[0].Rows[0]["product_detail"].ToString();
-                        //dr["image"] = ds.Tables[0].Rows[0]["productimage"].ToString();
                          dt.Rows.Add(dr);
                         GridView1.DataSource = dt;
                         GridView1.DataBind();
@@ -60,7 +59,6 @@ namespace Test1
                         dt = (DataTable)Session["buyitems"];
                         int sr;
                         sr = dt.Rows.Count;
-
                         dr = dt.NewRow();
                         string CS = ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
                         SqlConnection scon = new SqlConnection(CS);

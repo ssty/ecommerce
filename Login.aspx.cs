@@ -34,8 +34,6 @@ namespace Test1
                     conn.Close();
                 }
             }
-
-
             return status;
         }
 

@@ -126,7 +126,6 @@
     <Content Include="LoginAdmin.aspx" />
     <Content Include="test.aspx" />
     <Content Include="UpdateDeleteByAdmin.aspx" />
-    <Content Include="UserHomepage.aspx" />
     <Content Include="UserMyAccount.aspx" />
     <Content Include="UserMyFav.aspx" />
     <Content Include="ViewDetails.aspx" />
@@ -573,13 +572,6 @@
     </Compile>
     <Compile Include="UpdateDeleteByAdmin.aspx.designer.cs">
       <DependentUpon>UpdateDeleteByAdmin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="UserHomepage.aspx.cs">
-      <DependentUpon>UserHomepage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserHomepage.aspx.designer.cs">
-      <DependentUpon>UserHomepage.aspx</DependentUpon>
     </Compile>
     <Compile Include="usermaster.Master.cs">
       <DependentUpon>usermaster.Master</DependentUpon>

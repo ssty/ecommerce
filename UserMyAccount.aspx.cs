@@ -47,6 +47,32 @@ namespace Test1
             }
         }
 
+
+        [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod(EnableSession = true)]
+        public static bool CheckUserName(string email_address)
+        {
+            String accountName = (String)HttpContext.Current.Session["UserId"];
+            bool status = false ;
+            string constr = ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand("CheckPassword", conn))
+                {
+                    conn.Open();
+                    SqlCommand cmd2 = new SqlCommand("select account_id from account where email_address='" + accountName.Trim() + "'", conn);
+                    int account_id = Convert.ToInt32(cmd2.ExecuteScalar());
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@password", email_address.Trim());
+                    cmd.Parameters.AddWithValue("@account_id", account_id);
+                    status = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+            }
+            return status;
+
+        }
+
         protected void Button1_Click1(object sender, EventArgs e)
         {
 
@@ -94,12 +120,18 @@ namespace Test1
 
         protected void btnDeactivate_Click1(object sender, EventArgs e)
         {
-            try
+            Response.Write("<script LANGUAGE='JavaScript' >alert('Are you sure you want to deactivate your account?')</script>");
+        }
+
+
+        protected void confirmDeactivate_Click1(object sender, EventArgs e)
+        {
+            string x = passwordForDeactivate.Text;
+            bool passwordCheck = CheckUserName(x);
+            if (passwordCheck == true)
             {
                 using (SqlConnection con = new SqlConnection(CS)) //we use using to close the connection explicitly
                 {
-                    Response.Write("<script LANGUAGE='JavaScript' >alert('Are you sure you want to deactivate your account?')</script>");
-
                     string email = Session["UserId"].ToString();
                     string sql = "delMyAccount";
                     SqlCommand cmd1 = new SqlCommand(sql, con);
@@ -109,15 +141,13 @@ namespace Test1
                     cmd1.Parameters.Add(para1);
                     cmd1.ExecuteNonQuery();
                     Session.Clear();
-                    Response.Redirect("Homepage.aspx");
+                    
                 }
-
             }
-            catch (Exception ex)
+            else
             {
-
+                Label6.Text = "Invalid password";
             }
-
         }
     }
 }
